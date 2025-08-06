@@ -1,0 +1,54 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jboss
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/group.name: eks-service-group
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    
+    alb.ingress.kubernetes.io/subnets: subnet-0ef3db9961e207364,subnet-0d66c40c03c768f91
+    # alb.ingress.kubernetes.io/security-groups: sg-0f9d497666daf8ea3
+
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-port: '8080'    
+
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
+    alb.ingress.kubernetes.io/tags: Environment=dev,Service=jboss,Project=kus-dotcom,Team=devops
+
+
+spec:
+  ingressClassName: alb
+  rules:
+  - host: 
+    http:
+      paths:
+      # JBoss 웰컴 페이지
+      - path: /jboss
+        pathType: Prefix
+        backend:
+          service:
+            name: jboss
+            port:
+              number: 8080
+      # JBoss 관리 콘솔
+      - path: /jbossmgmt
+        pathType: Prefix
+        backend:
+          service:
+            name: jboss
+            port:
+              number: 9990
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: jboss
+            port:
+              number: 8080
+              
