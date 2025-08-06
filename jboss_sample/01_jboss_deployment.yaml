@@ -21,7 +21,7 @@ spec:
       # serviceAccountName: jboss
       containers:
       - name: jboss
-        image: 443102424924.dkr.ecr.us-west-2.amazonaws.com/aws-kia-dotcom-eks:jboss-runtime_24c18f6
+        image: 443102424924.dkr.ecr.us-west-2.amazonaws.com/aws-kia-dotcom-eks:jboss-runtime_e5d3bc9
         imagePullPolicy: IfNotPresent
         # command: ["tail", "-f", "/dev/null"]
         ports:
