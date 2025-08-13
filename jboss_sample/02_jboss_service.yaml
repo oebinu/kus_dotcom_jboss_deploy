@@ -24,3 +24,27 @@ spec:
   type: ClusterIP
 status:
   loadBalancer: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jboss
+    environment: test
+  name: jboss-preview 
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: management
+    port: 9990
+    protocol: TCP
+    targetPort: 9990
+  selector:
+    app: jboss
+    environment: test
+  type: ClusterIP

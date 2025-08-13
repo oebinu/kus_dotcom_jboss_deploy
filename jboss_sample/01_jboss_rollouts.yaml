@@ -1,0 +1,103 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: jboss
+  namespace: default
+  labels:
+    app: jboss
+    environment: test
+spec:  
+  # 롤백 설정
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    blueGreen:
+      # Blue/Green 배포 전략 설정
+      activeService: jboss     
+      previewService: jboss-preview    
+      # previewReplicaCount: 1           
+      autoPromotionEnabled: false      
+      scaleDownDelaySeconds: 10        
+      
+      # # 미리보기 단계 설정
+      # prePromotionAnalysis:
+      #   templates:
+      #   - templateName: success-rate
+      #   args:
+      #   - name: service-name
+      #     value: jboss-preview
+          
+      # # 승격 후 분석 설정
+      # postPromotionAnalysis:
+      #   templates:
+      #   - templateName: success-rate
+      #   args:
+      #   - name: service-name
+      #     value: jboss-active
+          
+      # # 미리보기 메타데이터
+      # previewMetadata:
+      #   labels:
+      #     role: preview
+      #   annotations:
+      #     role: preview
+          
+      # # 활성 메타데이터  
+      # activeMetadata:
+      #   labels:
+      #     role: active
+      #   annotations:
+      #     role: active
+
+  selector:
+    matchLabels:
+      app: jboss
+      environment: test
+  template:
+    metadata:
+      labels:
+        app: jboss
+        environment: test
+    spec:
+      # serviceAccountName: jboss
+      containers:
+      - name: jboss
+        image: 443102424924.dkr.ecr.us-west-2.amazonaws.com/aws-kia-dotcom-eks:jboss-runtime_76d1e8e
+        imagePullPolicy: IfNotPresent
+        # command: ["tail", "-f", "/dev/null"]
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9990
+          name: management
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 125m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        # Health checks for JBoss
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 8080
+        #   initialDelaySeconds: 120
+        #   periodSeconds: 30
+        #   timeoutSeconds: 10
+        #   failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+      restartPolicy: Always 
