@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     app: jboss
-    eks.amazonaws.com/fargate-profile: kus-dotcom-dev-fargate-profile
+    # eks.amazonaws.com/fargate-profile: kus-dotcom-dev-fargate-profile
     environment: test
   name: jboss
 spec:
@@ -19,7 +19,7 @@ spec:
     targetPort: 9990
   selector:
     app: jboss
-    eks.amazonaws.com/fargate-profile: kus-dotcom-dev-fargate-profile
+    # eks.amazonaws.com/fargate-profile: kus-dotcom-dev-fargate-profile
     environment: test
   type: ClusterIP
 status:
