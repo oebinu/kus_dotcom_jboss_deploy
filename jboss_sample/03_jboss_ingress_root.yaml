@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: jboss
+  name: jboss-root
   namespace: default
   annotations:
     alb.ingress.kubernetes.io/group.name: eks-service-group
