@@ -5,7 +5,7 @@ metadata:
   namespace: default
   annotations:
     alb.ingress.kubernetes.io/group.name: eks-service-group
-    alb.ingress.kubernetes.io/group.order: '100'  
+    # alb.ingress.kubernetes.io/group.order: '100'  
     alb.ingress.kubernetes.io/tags: Environment=dev,Service=jboss,Project=kus-dotcom,Team=devops
 
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
