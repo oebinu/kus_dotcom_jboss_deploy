@@ -44,3 +44,12 @@ spec:
             name: jboss
             port:
               number: 9990
+      # 루트 경로도 JBoss로 매핑 (선택사항)
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: jboss
+            port:
+              number: 8080
+              
