@@ -1,0 +1,17 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: jboss-pdb
+  namespace: default
+  labels:
+    app: jboss
+    environment: test
+spec:
+  # 최소 유지할 Pod 수 (또는 비율)
+  minAvailable: 1
+  # maxUnavailable: 50%  # 대안: 최대 중단 가능한 Pod 비율
+  
+  selector:
+    matchLabels:
+      app: jboss
+      environment: test 

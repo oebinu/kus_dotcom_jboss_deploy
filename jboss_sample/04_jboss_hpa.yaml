@@ -1,0 +1,26 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: jboss-hpa
+  namespace: default
+  labels:
+    app: jboss
+    environment: test
+spec:
+  # Rollout을 대상으로 스케일링
+  scaleTargetRef:
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
+    name: jboss
+  
+  # 최소/최대 레플리카 수
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  # CPU 사용률 기반 스케일링
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
