@@ -1,12 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   labels:
-    app: jboss-active
-    # eks.amazonaws.com/fargate-profile: kus-dotcom-dev-fargate-profile
+    app: jboss
     environment: test
-  name: jboss-active
+  name: jboss
 spec:
   ports:
   - name: http
@@ -18,12 +16,9 @@ spec:
     protocol: TCP
     targetPort: 9990
   selector:
-    app: jboss-active
-    # eks.amazonaws.com/fargate-profile: kus-dotcom-dev-fargate-profile
+    app: jboss
     environment: test
   type: ClusterIP
-status:
-  loadBalancer: {}
 
 ---
 
@@ -31,7 +26,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: jboss-preview
+    app: jboss
     environment: test
   name: jboss-preview 
 spec:
@@ -45,6 +40,6 @@ spec:
     protocol: TCP
     targetPort: 9990
   selector:
-    app: jboss-preview
+    app: jboss
     environment: test
   type: ClusterIP
