@@ -7,6 +7,7 @@ metadata:
     alb.ingress.kubernetes.io/group.name: eks-service-group
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.order: '100'  
     
     alb.ingress.kubernetes.io/subnets: subnet-0ef3db9961e207364,subnet-0d66c40c03c768f91
     # alb.ingress.kubernetes.io/security-groups: sg-0f9d497666daf8ea3
