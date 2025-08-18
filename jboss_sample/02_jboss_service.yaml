@@ -4,7 +4,7 @@ metadata:
   labels:
     app: jboss
     environment: test
-  name: jboss
+  name: jboss-active
 spec:
   ports:
   - name: http

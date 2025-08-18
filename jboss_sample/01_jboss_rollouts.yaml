@@ -13,7 +13,7 @@ spec:
   strategy:
     blueGreen:
       # Blue/Green 배포 전략 설정
-      activeService: jboss     
+      activeService: jboss-active
       previewService: jboss-preview    
       # previewReplicaCount: 1           
       autoPromotionEnabled: false      
