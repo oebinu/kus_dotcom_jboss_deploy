@@ -4,7 +4,7 @@ metadata:
   name: jboss
   namespace: default
   labels:
-    app: jboss
+    app: jboss-active
     environment: test
 spec:  
   # 롤백 설정
@@ -51,12 +51,12 @@ spec:
 
   selector:
     matchLabels:
-      app: jboss
+      app: jboss-active
       environment: test
   template:
     metadata:
       labels:
-        app: jboss
+        app: jboss-active
         environment: test
     spec:
       # serviceAccountName: jboss
