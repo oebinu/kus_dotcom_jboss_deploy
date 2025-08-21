@@ -30,7 +30,7 @@ spec:
     http:
       paths:
       # JBoss 웰컴 페이지
-      - path: /jboss
+      - path: /jboss-active
         pathType: Prefix
         backend:
           service:
@@ -42,7 +42,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: jboss
+            name: jboss-active
             port:
               number: 9990
       # 루트 경로도 JBoss로 매핑 (선택사항)
@@ -50,7 +50,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: jboss
+            name: jboss-active
             port:
               number: 8080
               
