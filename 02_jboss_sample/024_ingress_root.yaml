@@ -32,7 +32,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: jboss
+            name: jboss-active
             port:
               number: 8080
               
